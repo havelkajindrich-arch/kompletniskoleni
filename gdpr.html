@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Školení GDPR</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --orange: #e35205;
+  --bg: #f5f5f5;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  height: 100%;
+  background: url("postrane.png") no-repeat left bottom;
+  background-size: contain;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 0;
+}
+
+header {
+  background: var(--orange);
+  color: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.logo-box img {
+  height: 70px;
+  display: block;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.menu button {
+  position: relative;
+  padding: 12px 38px 12px 18px;
+  cursor: pointer;
+  border: none;
+  background: var(--orange);
+  color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Roboto', Arial, sans-serif;
+  text-align: center;
+}
+
+.menu button:hover {
+  filter: brightness(0.92);
+}
+
+.menu button.active {
+  outline: 3px solid rgba(227,82,5,0.35);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+}
+
+.menu button.locked {
+  background: #b5b5b5;
+  color: white;
+  cursor: not-allowed;
+}
+
+.menu button.locked:hover {
+  filter: none;
+}
+
+.menu-lock {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+}
+
+.card {
+  background: white;
+  padding: 32px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  min-height: 480px;
+}
+
+.card h2 {
+  font-size: 32px;
+  margin-top: 0;
+}
+
+.info-line {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.text-block {
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.info-panel {
+  background: white;
+  padding: 24px;
+  margin: 28px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.info-panel h3 {
+  margin-top: 0;
+  color: #222;
+  font-size: 24px;
+}
+
+.gdpr-types {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.gdpr-type,
+.hover-rule {
+  position: relative;
+  color: var(--orange);
+  font-weight: 900;
+  cursor: help;
+}
+
+.gdpr-type {
+  font-size: 20px;
+  letter-spacing: 1px;
+  border: 2px solid var(--orange);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #fff4ee;
+}
+
+.hover-rule {
+  display: inline-block;
+}
+
+.gdpr-type .tooltip,
+.hover-rule .tooltip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 42px;
+  transform: translateX(-50%);
+  width: 310px;
+  background: white;
+  color: #333;
+  border: 2px solid var(--orange);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  z-index: 10;
+}
+
+.gdpr-type:hover .tooltip,
+.hover-rule:hover .tooltip {
+  display: block;
+}
+
+.intro-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 30px auto;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.duo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.privacy-mark {
+  width: 210px;
+  min-height: 160px;
+  border-radius: 10px;
+  background: #fff4ee;
+  border: 3px solid var(--orange);
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 54px;
+  font-weight: 900;
+}
+
+.privacy-image {
+  width: 210px;
+  max-height: 210px;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+}
+
+.duo-row p {
+  max-width: 480px;
+  text-align: center;
+}
+
+.sharing-rules {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 24px;
+  align-items: center;
+}
+
+.sharing-rules img {
+  width: 100%;
+  max-width: 230px;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
+  justify-self: end;
+}
+
+.after-gif-text {
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 25px 0;
+}
+
+.highlight {
+  background: #fff4ee;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 5px solid var(--orange);
+  margin: 18px 0;
+}
+
+.quiz {
+  margin-top: 28px;
+  padding: 20px;
+  background: #fff4ee;
+  border-left: 5px solid var(--orange);
+  border-radius: 8px;
+}
+
+.quiz h3 {
+  margin-top: 0;
+}
+
+.question {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid #f1c7b1;
+}
+
+.question:first-child {
+  border-top: none;
+}
+
+.quiz button {
+  display: block;
+  margin: 8px 0;
+  padding: 11px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid var(--orange);
+  background: white;
+  color: var(--orange);
+  border-radius: 8px;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 700;
+  text-align: left;
+}
+
+.quiz button:hover {
+  background: var(--orange);
+  color: white;
+}
+
+.quiz button.correct-selected {
+  background: var(--orange);
+  color: white;
+}
+
+.text-answer {
+  padding: 11px 14px;
+  font-size: 16px;
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin-right: 8px;
+}
+
+.text-answer.correct-input {
+  background: var(--orange);
+  color: white;
+  font-weight: 700;
+}
+
+.image-question {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 24px;
+  align-items: start;
+}
+
+.image-question .privacy-mark {
+  width: 220px;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  align-self: start;
+}
+
+.result {
+  margin-top: 8px;
+  font-weight: 700;
+  min-height: 22px;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+
+.next-box {
+  display: none;
+  text-align: right;
+  margin-top: 35px;
+}
+
+.next-box.show {
+  display: block;
+}
+
+.next-arrow {
+  border: none;
+  background: transparent;
+  color: var(--orange);
+  font-size: 50px;
+  line-height: 0.9;
+  cursor: pointer;
+  font-weight: 900;
+  transform: scaleX(1.35);
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  padding: 0 8px;
+}
+
+.next-text {
+  color: var(--orange);
+  font-weight: 900;
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+.locked-note {
+  text-align: right;
+  margin-top: 28px;
+  color: #777;
+  font-size: 14px;
+}
+
+.final-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+
+.final-text {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 30px;
+  line-height: 1.6;
+}
+
+.final-link {
+  color: var(--orange);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.final-link:hover {
+  text-decoration: underline;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 24px;
+  padding: 8px 20px;
+  background: var(--orange);
+  color: white;
+  text-align: center;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+footer p {
+  margin: 1px 0;
+}
+
+ul li, ol li {
+  margin-bottom: 10px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1000px) {
+  body::before {
+    opacity: 0.15;
+    width: 260px;
+  }
+
+  .image-question,
+  .sharing-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .sharing-rules img {
+    justify-self: center;
+  }
+
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .menu {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 2px solid rgba(255,255,255,.9);
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.home-link:hover { background: rgba(255,255,255,.14); }
+.header-actions { display:flex; align-items:center; gap:16px; }
+@media (max-width: 700px) { .header-actions { width:100%; justify-content:space-between; } }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>GDPR - školení zaměstnanců</h1>
+  <div class="header-actions">
+    <a class="home-link" href="index.html">← Výběr školení</a>
+    <div class="logo-box"><img src="logo.png" alt="Logo školy"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="menu" id="menu"></div>
+  <div id="content" class="card"></div>
+</div>
+
+<footer>
+  <p>Web vytvořen pomocí GPT</p>
+  <p>Autor: Jindřich Havelka, Gymnázium Brno, Slovanské náměstí</p>
+  <p>Zdroje: AI, zmocněnec školy pro BOZP, PO a GDPR</p>
+</footer>
+
+<script>
+let currentChapter = 0;
+
+const completed = [false, false, false, false, false, true];
+
+const answers = [
+  [false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  []
+];
+
+const data = [
+{
+  title: "Úvod do GDPR",
+  html: `
+    <h2>Proč řešit GDPR ve škole?</h2>
+
+    <div class="text-block">
+      <p><strong>GDPR chrání osobní údaje fyzických osob.</strong></p>
+
+      <p>
+        Ve škole se osobní údaje objevují každý den: ve školní matrice, třídních knihách,
+        systémech typu Bakaláři, při komunikaci s rodiči, ve zdravotních informacích,
+        v pracovněprávních dokumentech i ve fotografiích a videích z akcí.
+      </p>
+
+      <p>
+        Cílem školení není zaměstnance strašit, ale nastavit jednoduchý pracovní reflex:
+        zpracovávat jen potřebné údaje, předávat je jen oprávněným osobám a při problému
+        okamžitě informovat vedení školy.
+      </p>
+    </div>
+
+    <div class="gdpr-types">
+      <div class="gdpr-type">
+        ZÁKONNOST
+        <div class="tooltip">Údaj zpracováváme jen tehdy, když k tomu máme právní důvod.</div>
+      </div>
+
+      <div class="gdpr-type">
+        MINIMUM
+        <div class="tooltip">Neschraňujeme údaje, které nepotřebujeme, a pravidelně kontrolujeme, zda je máme stále uchovávat.</div>
+      </div>
+
+      <div class="gdpr-type">
+        BEZPEČNOST
+        <div class="tooltip">Údaje chráníme před ztrátou, zneužitím, neoprávněným přístupem i náhodným zveřejněním.</div>
+      </div>
+    </div>
+
+    <img class="intro-image" src="uvodni.png" alt="Úvod do GDPR">
+
+    <div class="info-panel">
+      <h3>Co je osobní údaj?</h3>
+
+      <p>
+        Osobním údajem není jen jméno a příjmení. Může jím být i kombinace informací,
+        podle které lze člověka poznat: třída, fotografie, video, hlas, e-mail, zdravotní informace,
+        údaj o rodině, specifická akce nebo poznámka v systému.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co chrání GDPR?</p>
+        <button onclick="answerQuestion(0,0,true,this)">Osobní údaje fyzických osob.</button>
+        <button onclick="answerQuestion(0,0,false,this)">Pouze školní budovy a vybavení.</button>
+        <button onclick="answerQuestion(0,0,false,this)">Pouze účetní doklady školy.</button>
+        <p id="result0_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Může být fotografie rozpoznatelného dítěte osobním údajem?</p>
+        <button onclick="answerQuestionCustom(0,1,true,this,'Správně. Pokud je dítě rozpoznatelné, fotografie nebo video se zpravidla považuje za osobní údaj.')">Ano.</button>
+        <button onclick="answerQuestionCustom(0,1,false,this,'Pokud je dítě rozpoznatelné, fotografie nebo video se zpravidla považuje za osobní údaj.')">Ne, fotografie nikdy není osobní údaj.</button>
+        <button onclick="answerQuestionCustom(0,1,false,this,'Pokud je dítě rozpoznatelné, fotografie nebo video se zpravidla považuje za osobní údaj.')">Pouze tehdy, když je vytištěná.</button>
+        <p id="result0_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Jaký je správný přístup k osobním údajům?</p>
+        <button onclick="answerQuestion(0,2,true,this)">Zpracovávat jen potřebné údaje a chránit je před zneužitím.</button>
+        <button onclick="answerQuestion(0,2,false,this)">Ukládat si vše pro případ, že se to někdy hodí.</button>
+        <button onclick="answerQuestion(0,2,false,this)">Posílat údaje komukoli, kdo o ně požádá.</button>
+        <p id="result0_2" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Zásady a role",
+  html: `
+    <h2>Zásady zpracování a základní role</h2>
+
+    <p class="info-line">
+      Osobní údaje se zpracovávají korektně, zákonně, přiměřeně, přesně, aktuálně a bezpečně.
+    </p>
+
+    <div class="text-block">
+      <p>Mezi praktické zásady patří:</p>
+
+      <ul>
+        <li><strong>Zákonnost a korektnost</strong> - musíme vědět, proč údaje zpracováváme.</li>
+        <li><strong>Přiměřenost a relevance</strong> - zpracováváme jen údaje potřebné pro daný účel.</li>
+        <li><strong>Přesnost a aktualizace</strong> - údaje mají být správné a podle potřeby aktualizované.</li>
+        <li><strong>Zabezpečení</strong> - údaje chráníme proti zcizení, ztrátě, úpravě nebo neoprávněnému zveřejnění.</li>
+        <li><strong>Čistý stůl</strong> - dokumenty s osobními údaji nenecháváme volně ležet.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Právní důvody zpracování</h3>
+
+      <ul>
+        <li><strong>Plnění právní povinnosti</strong> - například školní matrika.</li>
+        <li><strong>Plnění smlouvy</strong> - například pracovněprávní vztahy.</li>
+        <li><strong>Oprávněný zájem</strong> - například některé kamerové systémy nebo běžná prezentace školy.</li>
+        <li><strong>Souhlas</strong> - například některé fotografie, videa nebo jiné prezentační účely.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Správce, zpracovatel a pověřenec</h3>
+
+      <p>
+        Správcem osobních údajů je škola nebo školské zařízení. Zpracovatelem může být například
+        externí účetní nebo externí správce IT, pokud má k údajům přístup. Pověřenec pro ochranu
+        osobních údajů pomáhá škole řešit otázky ochrany údajů a incidenty.
+      </p>
+
+      <p>
+        Pokud někdo požádá o přístup ke svým údajům, zaměstnanec žádost neřeší samostatně.
+        Vždy ji předá vedení školy.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co to znamená zásada přiměřenosti a relevance?</p>
+        <button onclick="answerQuestion(1,0,true,this)">Zpracováváme jen údaje, které jsou pro daný účel potřebné.</button>
+        <button onclick="answerQuestion(1,0,false,this)">Ukládáme co nejvíce údajů.</button>
+        <button onclick="answerQuestion(1,0,false,this)">Údaje mažeme okamžitě po zapsání.</button>
+        <p id="result1_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Kdo je správcem osobních údajů ve škole?</p>
+        <button onclick="answerQuestion(1,1,true,this)">Škola nebo školské zařízení.</button>
+        <button onclick="answerQuestion(1,1,false,this)">Každý rodič.</button>
+        <button onclick="answerQuestion(1,1,false,this)">Každý žák samostatně.</button>
+        <p id="result1_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Co má zaměstnanec udělat, když někdo požádá o přístup k osobním údajům?</p>
+        <button onclick="answerQuestionCustom(1,2,true,this,'Správně. Žádosti o přístup k údajům se řeší přes vedení školy, typicky přes ředitele.')">Předat žádost vedení školy.</button>
+        <button onclick="answerQuestionCustom(1,2,false,this,'Žádosti o přístup k údajům se řeší přes vedení školy, typicky přes ředitele.')">Okamžitě poslat všechna data e-mailem.</button>
+        <button onclick="answerQuestionCustom(1,2,false,this,'Žádosti o přístup k údajům se řeší přes vedení školy, typicky přes ředitele.')">Žádost ignorovat.</button>
+        <p id="result1_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Co je příkladem právního důvodu „plnění právní povinnosti“?</p>
+        <button onclick="answerQuestion(1,3,true,this)">Vedení školní matriky.</button>
+        <button onclick="answerQuestion(1,3,false,this)">Náhodné zveřejnění fotek na osobním profilu.</button>
+        <button onclick="answerQuestion(1,3,false,this)">Uložení hesel na papír vedle počítače.</button>
+        <p id="result1_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "7 pravidel zaměstnance",
+  html: `
+    <h2>7 pravidel zaměstnance</h2>
+
+    <div class="text-block">
+      <p>
+        Ochrana osobních údajů je hlavně každodenní disciplína. Nejvíc pomáhá mlčenlivost,
+        opatrnost při e-mailu a tisku, bezpečné přihlašování a rychlé hlášení incidentů.
+      </p>
+    </div>
+
+    <div class="info-panel">
+      <h3>Praktická pravidla</h3>
+
+      <ul>
+        <li><strong>Mlčenlivost:</strong> citlivé a osobní údaje sdělujeme jen oprávněným osobám a jen pokud je to nezbytné.</li>
+        <li><strong>Minimum:</strong> pravidelně kontrolujeme, zda zbytečně neschraňujeme nadbytečné údaje.</li>
+        <li><strong>Pošta:</strong> u e-mailů kontrolujeme příjemce; citlivá data mimo školu posíláme jen bezpečně, například heslovanou přílohou.</li>
+        <li><strong>Tisk:</strong> vytištěné materiály chráníme a nelikvidujeme je vyhozením do běžného nebo tříděného odpadu.</li>
+        <li><strong>Uzamknutí:</strong> při odchodu od počítače se odhlásíme nebo počítač uzamkneme.</li>
+        <li><strong>Ochrana zařízení:</strong> notebook, tablet i telefon chráníme před ztrátou a krádeží.</li>
+        <li><strong>Hesla:</strong> hesla nenosíme na papírcích, nástěnkách ani na stole.</li>
+      </ul>
+    </div>
+
+    <div class="duo-row">
+      <img class="privacy-image" src="prihlaseni.png" alt="Přihlášení">
+
+      <p class="after-gif-text">
+        Nejčastější chyba nebývá technicky složitá. Stačí poslat e-mail špatnému příjemci,
+        nechat ležet seznam žáků na stole nebo si uložit údaje na nezabezpečený flashdisk.
+      </p>
+    </div>
+
+    <div class="highlight">
+      <strong>Soukromá a nezabezpečená úložiště nejsou vhodná pro osobní údaje žáků.</strong>
+      Osobní údaje neukládáme do soukromých telefonů, notebooků, flashdisků nebo cloudů bez schváleného zabezpečení.
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co uděláte, když odcházíte od počítače?</p>
+        <button onclick="answerQuestion(2,0,true,this)">Odhlásím se nebo počítač uzamknu.</button>
+        <button onclick="answerQuestion(2,0,false,this)">Nechám vše otevřené, pokud jsem pryč jen chvíli.</button>
+        <button onclick="answerQuestion(2,0,false,this)">Předám heslo kolegovi.</button>
+        <p id="result2_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Kam patří papíry s osobními údaji určené k likvidaci?</p>
+        <button onclick="answerQuestion(2,1,false,this)">Do tříděného odpadu.</button>
+        <button onclick="answerQuestion(2,1,true,this)">Ke skartaci podle pravidel školy.</button>
+        <button onclick="answerQuestion(2,1,false,this)">Do koše ve třídě.</button>
+        <p id="result2_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Jak postupovat při posílání citlivých údajů e-mailem mimo školu?</p>
+        <button onclick="answerQuestionCustom(2,2,true,this,'Správně. Vždy ověřte příjemce a citlivé údaje posílejte jen zabezpečeně, například jako heslovanou přílohu, pokud je to opravdu nezbytné.')">Ověřit příjemce a použít zabezpečený způsob, například heslovanou přílohu.</button>
+        <button onclick="answerQuestionCustom(2,2,false,this,'Vždy ověřte příjemce a citlivé údaje posílejte jen zabezpečeně, pokud je to opravdu nezbytné.')">Poslat údaje přímo v těle e-mailu komukoli.</button>
+        <button onclick="answerQuestionCustom(2,2,false,this,'Vždy ověřte příjemce a citlivé údaje posílejte jen zabezpečeně, pokud je to opravdu nezbytné.')">Přidat co nejvíce dalších příjemců do kopie.</button>
+        <p id="result2_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Kde mají být hesla?</p>
+        <button onclick="answerQuestion(2,3,true,this)">Bezpečně zapamatovaná nebo ve schváleném správci hesel.</button>
+        <button onclick="answerQuestion(2,3,false,this)">Na papírku na monitoru.</button>
+        <button onclick="answerQuestion(2,3,false,this)">Na nástěnce ve sborovně.</button>
+        <p id="result2_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Fotky a sociální sítě",
+  html: `
+    <h2>Fotografie, videa a sociální sítě</h2>
+
+    <div class="text-block">
+      <p>
+        Fotografie a videa, na kterých je dítě rozpoznatelné, jsou ve většině případů osobními údaji.
+        Riziko zvyšuje kombinace obličeje, jména, třídy, místa, času nebo popisku akce.
+      </p>
+
+      <p>
+        Digitální stopa dítěte může zůstat dostupná dlouho a po zveřejnění ji škola často nedokáže
+        plně kontrolovat. Proto je bezpečnější sdílet jen to, co je opravdu nutné, a zvolit vhodný kanál.
+      </p>
+    </div>
+
+    <div class="info-panel">
+      <h3>Co kam patří</h3>
+
+      <ul>
+        <li><strong>Školní systém nebo školní úložiště:</strong> hlavní místo pro větší množství fotografií a videí pro rodiče.</li>
+        <li><strong>Web školy:</strong> obecné informace, fotografie prostředí, výrobků, činností nebo výběrové záběry bez snadné identifikace dětí.</li>
+        <li><strong>Oficiální sociální sítě školy:</strong> střídmá prezentace školy navenek; u fotografií a videí dětí je nutné postupovat se souhlasem a podle pravidel školy.</li>
+        <li><strong>Rodičovské skupiny a chaty:</strong> organizační komunikace, nikoli rozsáhlé album fotografií dětí.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <div class="sharing-rules">
+        <div>
+          <h3>Pravidla bezpečného sdílení</h3>
+
+          <ul>
+            <li>Nepřidávejte celá jména dětí, tagy ani přesnou polohu.</li>
+            <li>Nezveřejňujte detailní portréty bez jasného důvodu a souhlasu.</li>
+            <li>Nesdílejte situace, které by mohly dítě zesměšnit, znevýhodnit nebo ukázat v citlivé situaci.</li>
+            <li>U videí buďte ještě opatrnější než u fotografií.</li>
+            <li>Osobní profily zaměstnanců nejsou vhodné místo pro zveřejňování záznamů dětí.</li>
+          </ul>
+        </div>
+
+        <img src="instagram.png" alt="Instagram">
+      </div>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Kam je nejbezpečnější dát větší množství fotek z třídní akce pro rodiče?</p>
+        <button onclick="answerQuestion(3,0,true,this)">Do školního systému nebo školního úložiště s omezeným přístupem.</button>
+        <button onclick="answerQuestion(3,0,false,this)">Na veřejný profil učitele.</button>
+        <button onclick="answerQuestion(3,0,false,this)">Do veřejného příspěvku na sociální síti.</button>
+        <p id="result3_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Co zvyšuje riziko při zveřejnění fotografie dítěte?</p>
+        <button onclick="answerQuestion(3,1,true,this)">Spojení fotografie s celým jménem, třídou, místem nebo časem.</button>
+        <button onclick="answerQuestion(3,1,false,this)">Rozmazání obličeje a obecný popisek.</button>
+        <button onclick="answerQuestion(3,1,false,this)">Fotografie školní výzdoby bez osob.</button>
+        <p id="result3_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Je osobní účet učitele vhodný pro zveřejňování fotografií a videí dětí ze školy?</p>
+        <button onclick="answerQuestionCustom(3,2,false,this,'Osobní účet učitele škola obtížně kontroluje. Vhodnější jsou oficiální školní kanály a jednotná pravidla školy.')">Ano, pokud má účet hodně sledujících.</button>
+        <button onclick="answerQuestionCustom(3,2,true,this,'Správně. Osobní účet učitele škola obtížně kontroluje. Vhodnější jsou oficiální školní kanály a jednotná pravidla školy.')">Ne, vhodnější jsou oficiální školní kanály.</button>
+        <button onclick="answerQuestionCustom(3,2,false,this,'Osobní účet učitele škola obtížně kontroluje. Vhodnější jsou oficiální školní kanály a jednotná pravidla školy.')">Ano, pokud je příspěvek jen ve stories.</button>
+        <p id="result3_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Co patří do rodičovské skupiny?</p>
+        <button onclick="answerQuestion(3,3,true,this)">Organizační informace a komunitní domluva.</button>
+        <button onclick="answerQuestion(3,3,false,this)">Citlivé zdravotní a kázeňské informace.</button>
+        <button onclick="answerQuestion(3,3,false,this)">Velké množství fotek cizích dětí bez souhlasu.</button>
+        <p id="result3_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Incidenty",
+  html: `
+    <h2>Incidenty, žádosti a každodenní postup</h2>
+
+    <div class="text-block">
+      <p>
+        Porušením ochrany osobních údajů může být ztráta dokumentů, omylem odeslaný e-mail,
+        zveřejnění údajů nepovolané osobě, ztracený notebook nebo telefon, neoprávněný přístup
+        do systému nebo zveřejnění fotografie dítěte v rozporu s pravidly.
+      </p>
+    </div>
+
+    <div class="highlight">
+      <strong>Každé porušení, ztrátu, zničení nebo ohrožení osobních údajů hlaste neprodleně pověřené osobě, tedy Honzovi Kadlecovi, a to nejpozději do 24 hodin od okamžiku, kdy se o úniku nebo ohrožení dozvíte.</strong>
+    </div>
+
+    <div class="info-panel">
+      <h3>Když se stane chyba</h3>
+
+      <ul>
+        <li>Zastavte další šíření údajů, pokud je to možné.</li>
+        <li>Neprodleně informujte Honzu Kadlece nebo vedení školy.</li>
+        <li>Nesnažte se incident utajit nebo řešit neformálně mimo pravidla školy.</li>
+        <li>U zveřejněného obsahu jej stáhněte nebo požádejte odpovědnou osobu o odstranění.</li>
+        <li>Podle situace se kontaktuje pověřenec pro ochranu osobních údajů.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Předávání údajů</h3>
+
+      <p>
+        Osobní údaje se jiným subjektům předávají zabezpečeným způsobem, například datovou schránkou,
+        osobně nebo jiným schváleným postupem. Před odesláním vždy kontrolujte, komu údaje posíláte,
+        zda je příjemce oprávněný a zda je přenos přiměřeně chráněný.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Komu zaměstnanec hlásí porušení ochrany osobních údajů?</p>
+        <button onclick="answerQuestion(4,0,true,this)">Neprodleně vedení školy nebo řediteli.</button>
+        <button onclick="answerQuestion(4,0,false,this)">Pouze kolegovi ve sborovně.</button>
+        <button onclick="answerQuestion(4,0,false,this)">Nikomu, pokud šlo o omyl.</button>
+        <p id="result4_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Do kdy nejpozději má zaměstnanec podle desatera ohlásit únik nebo ohrožení údajů?</p>
+        <input id="incidentInput" class="text-answer" type="text" placeholder="Zadejte např. 24 hodin">
+        <button onclick="answerTextQuestion(4,1,['24 hodin','do 24 hodin','nejpozději do 24 hodin','24h'],'incidentInput','result4_1','Správně. Incident se má hlásit nejpozději do 24 hodin, prakticky ale neprodleně.')">Ověřit odpověď</button>
+        <p id="result4_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Co udělat při omylem zveřejněné fotografii dítěte?</p>
+        <button onclick="answerQuestionCustom(4,2,true,this,'Správně. Obsah je potřeba stáhnout nebo zajistit jeho odstranění a věc nahlásit podle pravidel školy.')">Stáhnout ji nebo zajistit odstranění a věc nahlásit.</button>
+        <button onclick="answerQuestionCustom(4,2,false,this,'Obsah je potřeba stáhnout nebo zajistit jeho odstranění a věc nahlásit podle pravidel školy.')">Nechat ji online, pokud si nikdo nestěžuje.</button>
+        <button onclick="answerQuestionCustom(4,2,false,this,'Obsah je potřeba stáhnout nebo zajistit jeho odstranění a věc nahlásit podle pravidel školy.')">Diskutovat veřejně ve skupině, kdo za to může.</button>
+        <p id="result4_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Jak předáváme osobní údaje jiným subjektům?</p>
+        <button onclick="answerQuestion(4,3,true,this)">Zabezpečeným a schváleným způsobem.</button>
+        <button onclick="answerQuestion(4,3,false,this)">Libovolně přes soukromý chat.</button>
+        <button onclick="answerQuestion(4,3,false,this)">Ve veřejné skupině, aby to bylo rychlé.</button>
+        <p id="result4_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Závěrečný test",
+  html: `
+    <h2>Dokončení</h2>
+
+    <div class="duo-row">
+      <img class="privacy-image" src="gdpr.png" alt="GDPR">
+
+      <p class="after-gif-text">
+        GDPR nemusí být překážka. Když víme, jak na to, pomáhá sdílet informace bezpečně,
+        chránit děti, rodiče i zaměstnance a udržet ve škole jasná pravidla.
+      </p>
+    </div>
+
+    <div class="final-title">
+      GRATULUJI K ÚSPĚŠNÉMU DOKONČENÍ KURZU GDPR PRO ZAMĚSTNANCE GYMNÁZIA BRNO, SLOVANSKÉ NÁMĚSTÍ!
+    </div>
+
+    <div class="final-text">
+      K úspěšnému uzavření školení zbývá absolvovat závěrečný test.
+      Odkaz na test můžeš doplnit přímo do souboru na místo odkazu níže:
+      <br>
+      <a class="final-link" target="_blank" href="#">
+        závěrečný test GDPR
+      </a>.
+    </div>
+  `
+}
+];
+
+function isChapterUnlocked(index) {
+  return index === 0 || completed[index - 1];
+}
+
+function renderMenu() {
+  const menu = document.getElementById("menu");
+  menu.innerHTML = "";
+
+  data.forEach((chapter, index) => {
+    const button = document.createElement("button");
+    const unlocked = isChapterUnlocked(index);
+
+    button.innerText = (index + 1) + ". " + chapter.title;
+    button.onclick = () => show(index);
+
+    if (index === currentChapter) {
+      button.classList.add("active");
+    }
+
+    if (!unlocked) {
+      button.classList.add("locked");
+
+      const lock = document.createElement("span");
+      lock.className = "menu-lock";
+      lock.innerText = "🔒";
+      button.appendChild(lock);
+    }
+
+    menu.appendChild(button);
+  });
+}
+
+function show(index) {
+  if (!isChapterUnlocked(index)) {
+    return;
+  }
+
+  currentChapter = index;
+  renderMenu();
+
+  const isLast = index === data.length - 1;
+  const chapterDone = completed[index];
+
+  document.getElementById("content").innerHTML =
+    data[index].html +
+    `
+    <div id="nextBox" class="next-box ${chapterDone && !isLast ? "show" : ""}">
+      <button class="next-arrow" onclick="nextChapter()">➜</button>
+      <div class="next-text">Další kapitola</div>
+    </div>
+
+    <div id="lockedNote" class="locked-note" style="${chapterDone || isLast ? "display:none;" : ""}">
+      Pro pokračování odpověz správně na všechny otázky v této kapitole.
+    </div>
+    `;
+}
+
+function answerQuestion(chapterIndex, questionIndex, correct, button) {
+  const result = document.getElementById("result" + chapterIndex + "_" + questionIndex);
+
+  if (correct) {
+    answers[chapterIndex][questionIndex] = true;
+    result.innerText = "Správně.";
+    result.className = "result correct";
+    button.classList.add("correct-selected");
+  } else {
+    result.innerText = "Špatně. Zkus to znovu.";
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function answerQuestionCustom(chapterIndex, questionIndex, correct, button, message) {
+  const result = document.getElementById("result" + chapterIndex + "_" + questionIndex);
+
+  if (correct) {
+    answers[chapterIndex][questionIndex] = true;
+    result.innerText = message;
+    result.className = "result correct";
+    button.classList.add("correct-selected");
+  } else {
+    result.innerText = message;
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function answerTextQuestion(chapterIndex, questionIndex, correctAnswers, inputId, resultId, successMessage) {
+  const input = document.getElementById(inputId);
+  const result = document.getElementById(resultId);
+  const value = input.value.trim().toLowerCase();
+  const allowed = Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers];
+
+  if (allowed.map(answer => answer.toLowerCase()).includes(value)) {
+    answers[chapterIndex][questionIndex] = true;
+    input.classList.add("correct-input");
+    result.innerText = successMessage || "Správně.";
+    result.className = "result correct";
+  } else {
+    result.innerText = "Špatně. Zkus to znovu.";
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function checkChapterCompletion(chapterIndex) {
+  const allCorrect = answers[chapterIndex].every(value => value === true);
+
+  const nextBox = document.getElementById("nextBox");
+  const lockedNote = document.getElementById("lockedNote");
+
+  if (allCorrect) {
+    completed[chapterIndex] = true;
+
+    if (chapterIndex < data.length - 1 && nextBox) {
+      nextBox.classList.add("show");
+    }
+
+    if (lockedNote) {
+      lockedNote.style.display = "none";
+    }
+
+    renderMenu();
+  }
+}
+
+function nextChapter() {
+  if (completed[currentChapter] && currentChapter < data.length - 1) {
+    show(currentChapter + 1);
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+}
+
+renderMenu();
+show(0);
+</script>
+
+</body>
+</html>

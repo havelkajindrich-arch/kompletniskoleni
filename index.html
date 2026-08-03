@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Školení zaměstnanců</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root { --orange:#e35205; --bg:#f5f5f5; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; display:flex; flex-direction:column; background:var(--bg); font-family:'Roboto',Arial,sans-serif; color:#222; }
+header { background:var(--orange); color:white; padding:20px 30px; display:flex; justify-content:space-between; align-items:center; gap:24px; }
+header h1 { margin:0; font-size:36px; font-weight:900; }
+header img { height:70px; display:block; }
+main { flex:1; width:100%; max-width:1100px; margin:0 auto; padding:36px 20px 48px; }
+.intro { background:white; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,.15); padding:32px; margin-bottom:24px; text-align:center; }
+.intro h2 { margin:0 0 12px; font-size:32px; }
+.intro p { margin:0 auto; max-width:760px; font-size:18px; line-height:1.6; }
+.training-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.training-card { background:white; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,.15); overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:#222; transition:transform .18s ease, box-shadow .18s ease; }
+.training-card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.19); }
+.training-image { height:210px; padding:22px; background:#fff4ee; display:flex; align-items:center; justify-content:center; }
+.training-image img { width:100%; height:100%; object-fit:contain; }
+.training-body { padding:24px; flex:1; display:flex; flex-direction:column; }
+.training-body h3 { margin:0 0 10px; color:var(--orange); font-size:27px; font-weight:900; }
+.training-body p { margin:0 0 20px; line-height:1.55; font-size:16px; flex:1; }
+.open-button { display:block; background:var(--orange); color:white; border-radius:8px; padding:13px 16px; text-align:center; font-weight:900; }
+footer { width:100%; padding:8px 20px; background:var(--orange); color:white; text-align:center; font-size:10px; line-height:1.35; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+footer p { margin:1px 0; }
+@media(max-width:850px){ .training-grid{grid-template-columns:1fr;} .training-image{height:190px;} header{align-items:flex-start;flex-direction:column;} }
+@media(max-width:500px){ header h1{font-size:29px;} .intro{padding:24px 20px;} .intro h2{font-size:27px;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Školení zaměstnanců</h1>
+  <img src="logo.png" alt="Logo školy">
+</header>
+<main>
+  <section class="intro">
+    <h2>Vyberte školení</h2>
+    <p>Zvolte oblast, kterou chcete absolvovat. Jednotlivá školení se otevírají samostatně a zachovávají původní kapitoly, kontrolní otázky i postupné odemykání obsahu.</p>
+  </section>
+  <section class="training-grid">
+    <a class="training-card" href="po.html">
+      <div class="training-image"><img src="hasic.png" alt="Požární ochrana"></div>
+      <div class="training-body"><h3>PO</h3><p>Požární ochrana, prevence požáru, hasicí přístroje a evakuace.</p><span class="open-button">Otevřít školení PO</span></div>
+    </a>
+    <a class="training-card" href="bozp.html">
+      <div class="training-image"><img src="bezpecak.png" alt="Bezpečnost práce"></div>
+      <div class="training-body"><h3>BOZP</h3><p>Bezpečnost a ochrana zdraví při práci, rizika, dohled a první pomoc.</p><span class="open-button">Otevřít školení BOZP</span></div>
+    </a>
+    <a class="training-card" href="gdpr.html">
+      <div class="training-image"><img src="gdpr.png" alt="Ochrana osobních údajů"></div>
+      <div class="training-body"><h3>GDPR</h3><p>Ochrana osobních údajů, bezpečné sdílení, sociální sítě a incidenty.</p><span class="open-button">Otevřít školení GDPR</span></div>
+    </a>
+  </section>
+</main>
+<footer>
+  <p>Web vytvořen pomocí GPT</p>
+  <p>Autor: Jindřich Havelka, Gymnázium Brno, Slovanské náměstí</p>
+  <p>Zdroje: AI, zmocněnec školy pro BOZP, PO a GDPR</p>
+</footer>
+</body>
+</html>

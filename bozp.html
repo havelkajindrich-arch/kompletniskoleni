@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Školení BOZP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --orange: #e35205;
+  --bg: #f5f5f5;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  height: 100%;
+  background: url("bezpecak.png") no-repeat left bottom;
+  background-size: 220px auto;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 0;
+}
+
+header {
+  background: var(--orange);
+  color: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.logo-box img {
+  height: 70px;
+  display: block;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.menu button {
+  padding: 12px 18px;
+  cursor: pointer;
+  border: none;
+  background: var(--orange);
+  color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Roboto', Arial, sans-serif;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+}
+
+.menu button:hover {
+  filter: brightness(0.92);
+}
+
+.menu button.active {
+  outline: 3px solid rgba(227,82,5,0.35);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+}
+
+.menu button:disabled {
+  background: #b7b7b7;
+  color: #eeeeee;
+  cursor: not-allowed;
+  filter: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.chapter-label {
+  flex: 1;
+}
+
+.chapter-lock {
+  flex: 0 0 auto;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.card {
+  background: white;
+  padding: 32px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  min-height: 480px;
+}
+
+.card h2 {
+  font-size: 32px;
+  margin-top: 0;
+}
+
+.info-line {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.text-block {
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.intro-row {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 30px;
+  align-items: center;
+}
+
+.intro-row img {
+  width: 100%;
+  max-width: 280px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.image-source {
+  margin-top: 6px;
+  font-size: 10px;
+  line-height: 1.3;
+  color: #777;
+  text-align: center;
+  word-break: break-word;
+}
+
+.info-panel {
+  background: white;
+  padding: 24px;
+  margin: 28px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.info-panel h3 {
+  margin-top: 0;
+  color: #222;
+  font-size: 24px;
+}
+
+.bozp-types {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.bozp-type,
+.hover-rule {
+  position: relative;
+  color: var(--orange);
+  font-weight: 900;
+  cursor: help;
+}
+
+.bozp-type {
+  font-size: 20px;
+  letter-spacing: 1px;
+  border: 2px solid var(--orange);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #fff4ee;
+}
+
+.hover-rule {
+  display: inline-block;
+}
+
+.bozp-type .tooltip,
+.hover-rule .tooltip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 42px;
+  transform: translateX(-50%);
+  width: 310px;
+  background: white;
+  color: #333;
+  border: 2px solid var(--orange);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  z-index: 10;
+}
+
+.bozp-type:hover .tooltip,
+.hover-rule:hover .tooltip {
+  display: block;
+}
+
+.center-image {
+  display: block;
+  max-width: 440px;
+  width: 90%;
+  margin: 28px auto;
+  border-radius: 12px;
+}
+
+.wide-image {
+  display: block;
+  max-width: 720px;
+  width: 95%;
+  margin: 25px auto;
+  border-radius: 12px;
+}
+
+.duo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.duo-row img {
+  width: 210px;
+  max-height: 210px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.safety-mark {
+  width: 210px;
+  min-height: 160px;
+  border-radius: 10px;
+  background: #fff4ee;
+  border: 3px solid var(--orange);
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 58px;
+  font-weight: 900;
+}
+
+.duo-row p {
+  max-width: 480px;
+  text-align: center;
+}
+
+.after-gif-text {
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 25px 0;
+}
+
+.highlight {
+  background: #fff4ee;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 5px solid var(--orange);
+  margin: 18px 0;
+}
+
+.law-link {
+  color: var(--orange);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.comic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.comic-grid img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  border: 3px solid #222;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+}
+
+.comic-grid img:last-child {
+  grid-column: 1 / -1;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.safety-quote {
+  max-width: 700px;
+  margin: 28px auto;
+  padding: 28px;
+  border-left: 6px solid var(--orange);
+  background: #fff4ee;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.quiz {
+  margin-top: 28px;
+  padding: 20px;
+  background: #fff4ee;
+  border-left: 5px solid var(--orange);
+  border-radius: 8px;
+}
+
+.quiz h3 {
+  margin-top: 0;
+}
+
+.question {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid #f1c7b1;
+}
+
+.question:first-child {
+  border-top: none;
+}
+
+.quiz button {
+  display: block;
+  margin: 8px 0;
+  padding: 11px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid var(--orange);
+  background: white;
+  color: var(--orange);
+  border-radius: 8px;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 700;
+  text-align: left;
+}
+
+.quiz button:hover {
+  background: var(--orange);
+  color: white;
+}
+
+.quiz button.correct-selected {
+  background: var(--orange);
+  color: white;
+}
+
+.text-answer {
+  padding: 11px 14px;
+  font-size: 16px;
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin-right: 8px;
+}
+
+.text-answer.correct-input {
+  background: var(--orange);
+  color: white;
+  font-weight: 700;
+}
+
+.image-question {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 24px;
+  align-items: start;
+}
+
+.image-question img,
+.image-question .safety-mark {
+  width: 220px;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  align-self: start;
+}
+
+.employee-row {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 24px;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.employee-row img,
+.employee-row .safety-mark {
+  width: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.result {
+  margin-top: 8px;
+  font-weight: 700;
+  min-height: 22px;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+
+.next-box {
+  display: none;
+  text-align: right;
+  margin-top: 35px;
+}
+
+.next-box.show {
+  display: block;
+}
+
+.next-arrow {
+  border: none;
+  background: transparent;
+  color: var(--orange);
+  font-size: 58px;
+  line-height: 0.8;
+  cursor: pointer;
+  font-weight: 900;
+  transform: scaleX(1.15);
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  padding: 0 8px;
+}
+
+.next-text {
+  color: var(--orange);
+  font-weight: 900;
+  font-size: 24px;
+  margin-top: 2px;
+  text-align: right;
+}
+
+.locked-note {
+  text-align: right;
+  margin-top: 28px;
+  color: #777;
+  font-size: 14px;
+}
+
+.final-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+
+.final-text {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 30px;
+  line-height: 1.6;
+}
+
+.final-link {
+  color: var(--orange);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.final-link:hover {
+  text-decoration: underline;
+}
+
+.footer-bar {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background: var(--orange);
+  color: white;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.footer-bar p {
+  margin: 1px 0;
+}
+
+ul li, ol li {
+  margin-bottom: 10px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1000px) {
+  body::before {
+    opacity: 0.15;
+    width: 180px;
+    background-size: 180px auto;
+  }
+
+  .image-question,
+  .employee-row,
+  .intro-row {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-row img {
+    margin: 0 auto;
+  }
+
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 650px) {
+  .menu {
+    grid-template-columns: 1fr;
+  }
+
+  .comic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comic-grid img:last-child {
+    grid-column: auto;
+    max-width: 100%;
+  }
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 2px solid rgba(255,255,255,.9);
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.home-link:hover { background: rgba(255,255,255,.14); }
+.header-actions { display:flex; align-items:center; gap:16px; }
+@media (max-width: 700px) { .header-actions { width:100%; justify-content:space-between; } }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>BOZP - školení zaměstnanců</h1>
+  <div class="header-actions">
+    <a class="home-link" href="index.html">← Výběr školení</a>
+    <div class="logo-box"><img src="logo.png" alt="Logo školy"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="menu" id="menu"></div>
+  <div id="content" class="card"></div>
+</div>
+
+<footer class="footer-bar">
+  <p>Web vytvořen pomocí GPT</p>
+  <p>Autor: Jindřich Havelka, Gymnázium Brno, Slovanské náměstí</p>
+  <p>Zdroje: AI, zmocněnec školy pro BOZP, PO a GDPR</p>
+</footer>
+
+<script>
+let currentChapter = 0;
+
+const completed = [false, false, false, false, false, true];
+
+const answers = [
+  [false, false, false],
+  [false, false, false],
+  [false, false, false, false],
+  [false, false, false, false, false],
+  [false, false, false, false],
+  []
+];
+
+const data = [
+{
+  title: "Úvod do BOZP",
+  html: `
+    <h2>Úvod do BOZP</h2>
+
+    <div class="intro-row">
+      <div class="text-block">
+        <p><strong>BOZP = bezpečnost a ochrana zdraví při práci.</strong></p>
+
+        <p>
+          Cílem BOZP je předcházet rizikům, odstraňovat je nebo alespoň minimalizovat jejich dopad.
+          Ve škole se BOZP netýká jen zaměstnanců, ale také bezpečí dětí, žáků a studentů.
+        </p>
+
+        <p>
+          Při nástupu do práce musí být zaměstnanec seznámen s pracovním řádem, vnitřními předpisy,
+          právními a ostatními předpisy k zajištění BOZP a také s návody k obsluze zařízení, která používá.
+        </p>
+      </div>
+
+      <img src="skolitel.png" alt="Školitel BOZP">
+    </div>
+
+    <div class="bozp-types">
+      <div class="bozp-type">
+        ŘEDITEL
+        <div class="tooltip">Odpovídá za BOZP jako zaměstnavatel.</div>
+      </div>
+
+      <div class="bozp-type">
+        VEDOUCÍ
+        <div class="tooltip">Odpovídá na svém stupni řízení za řízené zaměstnance a za pracoviště, které řídí. U nás se většinou jedná o správce učeben, předsedy předmětových sekcí apod.</div>
+      </div>
+
+      <div class="bozp-type">
+        POVĚŘENÁ OSOBA
+        <div class="tooltip">Jedná se o osobu jmenovanou ředitelem školy, která má na starosti proškolení zaměstnanců i žáků. Dále také hlídá administrativní a technickou stránku BOZP. V našem případě se jedná o kolegu Mgr. Daniela Šimka</div>
+      </div>
+
+      <div class="bozp-type">
+        ZAMĚSTNANEC
+        <div class="tooltip">Za BOZ odpovídá každý pedagogický nebo jiný zaměstnanec, který pracuje s dětmi, žáky novelou zákona 561/2004 Sb. v platném znění (školský zákon) byl vložen § 22b, kdy je v písmenu c) zakotvena povinnost chránit bezpečí a zdraví dítěte.</div>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <h3>Školení a zdravotní způsobilost</h3>
+
+      <ul>
+        <li>Vstupní školení se provádí před zahájením práce.</li>
+        <li>Periodické školení probíhá v cyklu určeném zaměstnavatelem, v podkladech je uvedeno 1x ročně.</li>
+        <li>Mimořádné školení se provádí například při změně podmínek, nové technologii nebo po úrazu.</li>
+        <li>Pracovnělékařské prohlídky mohou být vstupní, periodické nebo mimořádné.</li>
+      </ul>
+
+      <p>
+        BOZP vychází především ze zákoníku práce, který najdete na
+        <a class="law-link" href="https://ppropo.mpsv.cz/zakon_262_2006" target="_blank">tomto odkazu</a>.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co znamená zkratka BOZP?</p>
+        <button onclick="answerQuestion(0,0,true,this)">Bezpečnost a ochrana zdraví při práci.</button>
+        <button onclick="answerQuestion(0,0,false,this)">Budvar, Ostrava, Zubr, Plzeň.</button>
+        <button onclick="answerQuestion(0,0,false,this)">Bezpečné označení zdravotních pomůcek.</button>
+        <p id="result0_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Který z těchto úkonů ve větší míře nepřispěje zaměstnavateli k vytváření bezpečného a zdraví neohrožujícího pracovního prostředí?</p>
+        <button onclick="answerQuestion(0,1,false,this)">Vhodná organizace bezpečnosti a ochrany zdraví při práci.</button>
+        <button onclick="answerQuestion(0,1,false,this)">Přijímání opatření k předcházení rizikům.</button>
+        <button onclick="answerQuestion(0,1,true,this)">Zákaz všech potenciálně rizikových aktivit.</button>
+        <p id="result0_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Kdo odpovídá za vlastní bezpečnost při práci?</p>
+        <button onclick="answerQuestionCustom(0,2,false,this,'Za BOZP odpovídá zaměstnavatel a vedoucí zaměstnanci, ale každý zaměstnanec zároveň dbá o vlastní bezpečnost a zdraví.')">Pouze ředitel.</button>
+        <button onclick="answerQuestionCustom(0,2,true,this,'Správně. Za BOZP odpovídá zaměstnavatel a vedoucí zaměstnanci, ale každý zaměstnanec zároveň dbá o vlastní bezpečnost a zdraví.')">Každý zaměstnanec podle svých možností.</button>
+        <button onclick="answerQuestionCustom(0,2,false,this,'Za BOZP odpovídá zaměstnavatel a vedoucí zaměstnanci, ale každý zaměstnanec zároveň dbá o vlastní bezpečnost a zdraví.')">Pouze externí technik BOZP.</button>
+        <p id="result0_2" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Rizika na pracovišti",
+  html: `
+    <h2>Rizika na pracovišti</h2>
+
+    <p class="info-line">
+      Prevencí rizik se rozumí opatření, která mají rizikům předcházet, odstraňovat je nebo minimalizovat působení rizik, která odstranit nelze.
+    </p>
+
+    <div class="text-block">
+      <p>Na pracovišti školy se můžeme setkat s různými typy rizik:</p>
+
+      <ul>
+        <li><strong>Mechanická rizika</strong> - pády na schodech a rovině, uklouznutí, zakopnutí, pády břemen, pořezání nebo zhmoždění.</li>
+        <li><strong>Elektrická a plynová rizika</strong> - poškozené přívody, používání zařízení bez krytů, chybějící revize nebo nedostatečné větrání u plynových zařízení.</li>
+        <li><strong>Tepelná rizika</strong> - popálení, opaření, kontakt s horkými povrchy nebo působení extrémních teplot.</li>
+        <li><strong>Chemická rizika</strong> - chemikálie, aerosoly, kouř, plísně, bakterie, hořlavé kapaliny nebo plyny.</li>
+        <li><strong>Zraková a ergonomická zátěž</strong> - nevhodně nastavená obrazovka, odlesky, chybějící přestávky nebo špatná pracovní poloha.</li>
+      </ul>
+    </div>
+
+    <div class="duo-row">
+      <img src="mokrapodlaha.png" alt="Mokrá podlaha">
+
+      <p class="after-gif-text">
+        Riziko není jen „velká nehoda“. V praxi často začíná drobností: mokrá podlaha,
+        poškozený kabel, neodložené nářadí, odlesk na monitoru nebo spěch při dohledu.
+      </p>
+    </div>
+
+    <div class="info-panel">
+      <h3>Návykové látky</h3>
+
+      <div class="intro-row">
+        <p>
+          Mezi rizika na pracovišti patří i užívání návykových látek. Na našem pracovišti není možné
+          užívat žádné návykové látky. Tedy platí absolutní zákaz kouření, požívání alkoholických
+          nápojů či užívání jiných drog.
+        </p>
+
+        <img src="alkohol.jpg" alt="Zákaz alkoholu a návykových látek">
+      </div>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co patří mezi mechanická rizika?</p>
+        <button onclick="answerQuestion(1,0,true,this)">Uklouznutí, zakopnutí, pád nebo pořezání.</button>
+        <button onclick="answerQuestion(1,0,false,this)">Pouze práce s chemikáliemi.</button>
+        <button onclick="answerQuestion(1,0,false,this)">Pouze práce u počítače.</button>
+        <p id="result1_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Jaké zařízení se nesmí používat?</p>
+        <button onclick="answerQuestionCustom(1,1,true,this,'Správně. Poškozené zařízení je nutné vyřadit z používání, závadu nahlásit a zajistit, aby nebylo znovu použito do odstranění závady.')">Poškozené zařízení, poškozený spotřebič nebo poškozená prodlužovací šňůra.</button>
+        <button onclick="answerQuestionCustom(1,1,false,this,'Poškozené zařízení je nutné vyřadit z používání, závadu nahlásit a zajistit, aby nebylo znovu použito do odstranění závady.')">Zařízení s českým návodem.</button>
+        <button onclick="answerQuestionCustom(1,1,false,this,'Poškozené zařízení je nutné vyřadit z používání, závadu nahlásit a zajistit, aby nebylo znovu použito do odstranění závady.')">Zařízení po pravidelné kontrole.</button>
+        <p id="result1_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Co je správný přístup k rizikům?</p>
+        <button onclick="answerQuestion(1,2,true,this)">Rizika vyhledávat, odstraňovat nebo alespoň minimalizovat.</button>
+        <button onclick="answerQuestion(1,2,false,this)">Řešit je až po opakovaném úrazu.</button>
+        <button onclick="answerQuestion(1,2,false,this)">Spoléhat na to, že se nic nestane.</button>
+        <p id="result1_2" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Technika a elektro",
+  html: `
+    <h2>Stroje, přístroje a elektro</h2>
+
+    <div class="intro-row">
+      <div class="text-block">
+        <p>
+          Zaměstnanec se musí prokazatelně seznámit s návody k obsluze nebo používání zařízení.
+          Před každým použitím má provést vizuální kontrolu stavu stroje, přístroje, spotřebiče,
+          nářadí nebo nástroje.
+        </p>
+
+        <p>
+          Kontroluje se zejména celistvost, pevnost a funkčnost. Pokud je zařízení poškozené,
+          nesmí se používat a závada se musí nahlásit.
+        </p>
+      </div>
+
+      <img src="jiskra.png" alt="Jiskření elektrického zařízení">
+    </div>
+
+    <div class="info-panel">
+      <h3>Osoby bez elektrotechnické kvalifikace nesmí</h3>
+
+      <ul>
+        <li>pracovat na nekrytých živých částech elektrického zařízení,</li>
+        <li>dotýkat se živých částí přímo ani předmětem,</li>
+        <li>zasahovat do elektrických zařízení,</li>
+        <li>používat poškozená elektrická zařízení,</li>
+        <li>přibližovat se k přetrženým vodičům spadlým na zem nebo se jich dotýkat.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Zásady pro používání žebříků</h3>
+
+      <div class="intro-row">
+        <div>
+          <p>
+            Žebřík se používá jen tehdy, když je to vzhledem k riziku účelné a nelze použít bezpečnější prostředek.
+            Na žebříku se provádějí pouze krátkodobé a fyzicky nenáročné práce s ručním nářadím.
+          </p>
+
+          <ul>
+            <li>Při výstupu, sestupu i práci musí být zaměstnanec obrácen obličejem k žebříku.</li>
+            <li>Na žebříku smí být současně pouze jedna osoba.</li>
+            <li>Po žebříku lze vynášet jen břemena do 15 kg, pokud zvláštní předpis nestanoví jinak.</li>
+            <li>Žebřík musí být stabilní a zajištěný proti podklouznutí.</li>
+          </ul>
+        </div>
+
+        <img src="zebrik.png" alt="Bezpečné používání žebříku">
+      </div>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co uděláte před použitím spotřebiče nebo přístroje?</p>
+        <button onclick="answerQuestion(2,0,true,this)">Provedu vizuální kontrolu stavu zařízení.</button>
+        <button onclick="answerQuestion(2,0,false,this)">Zařízení použiji bez kontroly, pokud spěchám.</button>
+        <button onclick="answerQuestion(2,0,false,this)">Odstraním ochranné kryty, aby byla práce rychlejší.</button>
+        <p id="result2_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Co platí při zjištění závady na stroji nebo přístroji?</p>
+        <button onclick="answerQuestionCustom(2,1,true,this,'Správně. Závadu je potřeba nahlásit a zajistit, aby se zařízení nepoužívalo do odstranění závady.')">Závadu nahlásím a zařízení se do opravy nesmí používat.</button>
+        <button onclick="answerQuestionCustom(2,1,false,this,'Závadu je potřeba nahlásit a zajistit, aby se zařízení nepoužívalo do odstranění závady.')">Použiji zařízení opatrně.</button>
+        <button onclick="answerQuestionCustom(2,1,false,this,'Závadu je potřeba nahlásit a zajistit, aby se zařízení nepoužívalo do odstranění závady.')">Závadu nechám na dalšího zaměstnance.</button>
+        <p id="result2_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Smí osoba bez elektrotechnické kvalifikace zasahovat do elektrického zařízení?</p>
+        <button onclick="answerQuestion(2,2,false,this)">Ano, pokud jde jen o drobnou opravu.</button>
+        <button onclick="answerQuestion(2,2,true,this)">Ne, nesmí zasahovat do elektrických zařízení.</button>
+        <button onclick="answerQuestion(2,2,false,this)">Ano, pokud je přítomen kolega.</button>
+        <p id="result2_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Kolik osob smí současně pracovat na žebříku?</p>
+        <button onclick="answerQuestion(2,3,true,this)">Jedna osoba.</button>
+        <button onclick="answerQuestion(2,3,false,this)">Dvě osoby, pokud se jistí.</button>
+        <button onclick="answerQuestion(2,3,false,this)">Počet není omezen.</button>
+        <p id="result2_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Žáci a dohled",
+  html: `
+    <h2>BOZP ve vztahu k dětem, žákům a studentům</h2>
+
+    <div class="intro-row">
+      <div class="text-block">
+        <p>
+          Pedagogický pracovník prokazatelně seznamuje žáky se školním řádem, řády odborných učeben,
+          tělocvičen, dílen a s pokyny pro bezpečnou práci. Před zahájením výuky nebo aktivity provádí
+          vizuální kontrolu vybavení a upozorňuje na rizika vyplývající z plánu hodiny.
+        </p>
+
+        <p>
+          Před novou aktivitou, novým cvikem nebo nestandardní akcí musí být žáci seznámeni
+          se správným provedením, pravidly a potřebnými pokyny k zajištění bezpečnosti.
+        </p>
+
+        <p>
+          Všechna tato poučení musí být včasně zapsána do elektronického systému Bakaláři.
+          Pokud se stane, že žáci při poučení chybí, je nutné je doškolit neprodleně po jejich
+          příchodu do školy. Toto musí opět být zaznamenáno v systému Bakaláři.
+        </p>
+      </div>
+
+      <div>
+        <img src="bakalari.png" alt="Elektronický systém Bakaláři">
+        <div class="image-source">zdroj: https://www.facebook.com/bakalarisoftware/</div>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <h3>Tělesná výchova a sportovní činnosti</h3>
+
+      <ul>
+        <li>Vizuálně zkontrolujte používané prvky a vybavení před zahájením výuky.</li>
+        <li>Zkontrolujte ustrojení žáků a odložení zakázaných předmětů, například šperků, hodinek nebo prstenů.</li>
+        <li>U nových nebo náročných cviků proveďte ukázku, vymezte prostor a zajistěte dohled i dopomoc.</li>
+        <li>Při externích aktivitách si předem prostudujte provozní nebo návštěvní řád areálu.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Odborné učebny</h3>
+
+      <ul>
+        <li>Vizuálně zkontrolujte vhodnost ustrojení žáků (např. chemický plášť).</li>
+        <li>U nových aktivit je nutná demonstrace ze strany pedagoga.</li>
+        <li>Neustále kontrolovat správnost prováděných aktivit tak, aby nedošlo k úrazu.</li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Mimoškolní akce</h3>
+
+      <ul>
+        <li>
+          Při plánování akce mimo školu je nutné zohlednit průběh akce, dopravu, ubytování
+          a konkrétní pravidla bezpečné činnosti.
+        </li>
+        <li>
+          Poučení dětí a žáků se zaznamenává do našeho elektronického systému Bakaláři.
+          A to ještě před začátkem samotné akce v době, kdy si poučení vyslechnou všichni
+          zúčastnění žáci.
+        </li>
+        <li>
+          Je nezbytné, aby byl pedagogický dozor na místě setkání již 15 minut před začátkem akce.
+        </li>
+        <li>
+          Akce se vždy řídí vnitroorganizačními
+          <a class="law-link" href="https://drive.google.com/drive/u/0/folders/1ew6o-2O6HUVXR69UeMBkmdLogJgaNPd1" target="_blank">směrnicemi</a>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="info-panel">
+      <h3>Dohledy</h3>
+
+      <div class="intro-row">
+        <p>
+          Za řádný výkon dohledu se považuje fyzická přítomnost a postupné procházení svěřeného úseku.
+          Děti a žáci nesmí bez vědomí pedagoga nebo jiné dospělé osoby vpouštět cizí osoby, ani osoby
+          jim známé. Dohledy se provádí ve škole i na mimoškolních akcích.
+        </p>
+
+        <img src="patrol.png" alt="Pedagogický dohled">
+      </div>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Co má pedagog udělat před zahájením výuky v odborné učebně nebo tělocvičně?</p>
+        <button onclick="answerQuestion(3,0,true,this)">Zkontrolovat vybavení a seznámit žáky s riziky a pravidly.</button>
+        <button onclick="answerQuestion(3,0,false,this)">Začít výuku bez poučení, pokud žáci učebnu znají.</button>
+        <button onclick="answerQuestion(3,0,false,this)">Řešit bezpečnost až po úrazu.</button>
+        <p id="result3_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Kdy se provádí poučení žáků?</p>
+        <button onclick="answerQuestion(3,1,false,this)">Pouze při prvním nástupu zaměstnance.</button>
+        <button onclick="answerQuestionCustom(3,1,true,this,'Správně. Poučení se provádí na počátku školního roku, při nástupu žáka a před nestandardní akcí nebo novou aktivitou.')">Na počátku školního roku a před nestandardní nebo novou aktivitou.</button>
+        <button onclick="answerQuestion(3,1,false,this)">Pouze po kontrole inspekce.</button>
+        <p id="result3_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Co patří do kontroly před tělesnou výchovou?</p>
+        <button onclick="answerQuestion(3,2,true,this)">Kontrola vybavení, prostoru a odložení zakázaných předmětů žáků.</button>
+        <button onclick="answerQuestion(3,2,false,this)">Pouze zápis tématu do třídní knihy.</button>
+        <button onclick="answerQuestion(3,2,false,this)">Pouze otevření okna.</button>
+        <p id="result3_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Co znamená řádný dohled?</p>
+        <button onclick="answerQuestion(3,3,true,this)">Fyzickou přítomnost a postupné procházení svěřeného úseku.</button>
+        <button onclick="answerQuestion(3,3,false,this)">Pouze dostupnost pedagoga na telefonu.</button>
+        <button onclick="answerQuestion(3,3,false,this)">Dohled z kabinetu bez kontaktu se žáky.</button>
+        <p id="result3_3" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>5. Smí žáci vpouštět cizí osoby bez vědomí pedagoga?</p>
+        <button onclick="answerQuestion(3,4,false,this)">Ano, pokud osobu znají.</button>
+        <button onclick="answerQuestion(3,4,true,this)">Ne.</button>
+        <button onclick="answerQuestion(3,4,false,this)">Ano, pokud je přestávka.</button>
+        <p id="result3_4" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "První pomoc a úrazy",
+  html: `
+    <h2>První pomoc, pracovní úrazy a osobní ochranné pracovní prostředky</h2>
+
+    <div class="intro-row">
+      <div class="text-block">
+        <p>
+          Zaměstnavatel je povinen přijmout opatření pro mimořádné události a zajistit potřebný počet
+          zaměstnanců, kteří organizují poskytnutí první pomoci. Do určité míry by měl každý zaměstnanec
+          být schopen poskytnout první pomoc. Odbornější pomoci se poté dostane v sekci TV. Pro případ
+          poskytnutí první pomoci jsou na škole strategicky rozmístěny lékárničky. Jednu najdete v kabinetu
+          TV u tělocvičny, další na vrátnici či u Andrei Světlíkové. Jedna zpravidla bývá i v kabinetu
+          geografie (Šimek, Machovská, Janečková, Havelka).
+        </p>
+      </div>
+
+      <img src="lekarnicka.png" alt="Školní lékárnička">
+    </div>
+
+    <div class="highlight">
+      <strong>V lékárničkách nesmí být žádné léky.</strong>
+      Dětem a žákům se léky neposkytují, pokud pro to není splněn schválený postup podle pravidel školy.
+    </div>
+
+    <div class="info-panel">
+      <h3>Pracovní úraz</h3>
+
+      <p>
+        Pracovním úrazem je poškození zdraví nebo smrt zaměstnance, pokud k nim došlo nezávisle na jeho vůli
+        krátkodobým, náhlým a násilným působením zevních vlivů při plnění pracovních úkolů nebo v přímé
+        souvislosti s nimi. Pracovním úrazem není úraz na cestě do zaměstnání a zpět.
+      </p>
+
+      <p>
+        Zaměstnanec bez zbytečného odkladu oznamuje pověřené osobě, tedy Danielu Šimkovi, svůj úraz ve škole.
+        Záznam o úrazu je poté zapsán do knihy úrazů, která se nachází v kabinetu geografie
+        (Šimek, Machovská, Janečková, Havelka).
+      </p>
+
+      <p>
+        Je poskytnuta první pomoc a podle potřeby přivolána zdravotnická záchranná služba.
+      </p>
+
+      <p>
+        Evidence se vede i u úrazů bez pracovní neschopnosti nebo s pracovní neschopností do 3 kalendářních dnů.
+      </p>
+    </div>
+
+    <div class="info-panel">
+      <h3>Postup při úrazu studentů</h3>
+
+      <div class="intro-row">
+        <ul>
+          <li>Neprodleně zkontrolovat žáka a zjistit rozsah zranění.</li>
+          <li>
+            V případě že jste si jistí svými schopnostmi můžete drobné zranění ošetřit sami.
+            Pokud je zranění závažnějšího rázu, sháníte neprodleně někoho, kdo ošetření provede.
+            Žáka ovšem nenecháváte bez dozoru.
+          </li>
+          <li>
+            Pokud je to možné, přesunete žáka na místo ošetřovny - kancelář Andrei Světlíkové.
+            Pokud to možné není přivoláte kolegu, který dozor nad žákem provede.
+          </li>
+          <li>
+            Po ošetření zavoláte rodiče, aby si pro žáka přijeli. Nepouštějte žáka samotného domů,
+            veškerá rizika padají na vaši hlavu. V případě, že je zranění závažnější nebojte se zavolat
+            na dispečink záchranné služby, kde vám poradí, zda je nutné volat sanitku.
+          </li>
+          <li>
+            Jakmile skončíte se základní první pomocí a jste si jistí, že o žáka je postaráno,
+            nahlásíte tuto skutečnost Danielu Šimkovi a společně ji zapíšete do knihy úrazů.
+          </li>
+        </ul>
+
+        <img src="uraz.png" alt="Postup při úrazu studenta">
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <h3>Řešení konkrétní situace se studentem</h3>
+
+      <div class="comic-grid">
+        <img src="situace1.png" alt="Situace se studentem 1">
+        <img src="situace2.png" alt="Situace se studentem 2">
+        <img src="situace3.png" alt="Situace se studentem 3">
+        <img src="situace4.png" alt="Situace se studentem 4">
+        <img src="situace5.png" alt="Situace se studentem 5">
+        <img src="situace6.png" alt="Situace se studentem 6">
+        <img src="situace7.png" alt="Situace se studentem 7">
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <h3>Osobní ochranné pracovní prostředky</h3>
+
+      <p>
+        Osobní ochranné pracovní prostředky zaměstnavatel poskytuje bezplatně podle vlastního seznamu
+        zpracovaného na základě vyhodnocení rizik a konkrétních podmínek práce. Poskytování osobních
+        ochranných pracovních prostředků nesmí být nahrazeno finančním plněním a přidělené prostředky
+        zůstávají majetkem zaměstnavatele.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <h3>Kontrolní otázky</h3>
+
+      <div class="question">
+        <p>1. Mohou být v lékárničce běžně uložené léky?</p>
+        <button onclick="answerQuestion(4,0,false,this)">Ano, pro jistotu.</button>
+        <button onclick="answerQuestion(4,0,true,this)">Ne, v lékárničkách nesmí být žádné léky.</button>
+        <button onclick="answerQuestion(4,0,false,this)">Ano, pokud jsou volně prodejné.</button>
+        <p id="result4_0" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>2. Co musí zaměstnanec udělat při pracovním úrazu, pokud mu to zdravotní stav dovolí?</p>
+        <button onclick="answerQuestion(4,1,true,this)">Bezodkladně úraz oznámit nadřízenému.</button>
+        <button onclick="answerQuestion(4,1,false,this)">Oznámit ho až při ročním školení.</button>
+        <button onclick="answerQuestion(4,1,false,this)">Zapsat si ho jen pro sebe.</button>
+        <p id="result4_1" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>3. Je úraz na cestě do zaměstnání a zpět pracovním úrazem?</p>
+        <button onclick="answerQuestion(4,2,false,this)">Ano, vždy.</button>
+        <button onclick="answerQuestion(4,2,true,this)">Ne.</button>
+        <button onclick="answerQuestion(4,2,false,this)">Ano, pokud zaměstnanec spěchá.</button>
+        <p id="result4_2" class="result"></p>
+      </div>
+
+      <div class="question">
+        <p>4. Jak se poskytují osobní ochranné pracovní prostředky?</p>
+        <button onclick="answerQuestionCustom(4,3,false,this,'Osobní ochranné pracovní prostředky poskytuje zaměstnavatel bezplatně podle vyhodnocení rizik. Nelze je nahradit finančním plněním.')">Zaměstnanec si je vždy kupuje sám.</button>
+        <button onclick="answerQuestionCustom(4,3,true,this,'Správně. Osobní ochranné pracovní prostředky poskytuje zaměstnavatel bezplatně podle vyhodnocení rizik. Nelze je nahradit finančním plněním.')">Bezplatně podle vyhodnocení rizik a podmínek práce.</button>
+        <button onclick="answerQuestionCustom(4,3,false,this,'Osobní ochranné pracovní prostředky poskytuje zaměstnavatel bezplatně podle vyhodnocení rizik. Nelze je nahradit finančním plněním.')">Pouze formou peněžního příspěvku.</button>
+        <p id="result4_3" class="result"></p>
+      </div>
+    </div>
+  `
+},
+
+{
+  title: "Závěrečný test",
+  html: `
+    <h2>Závěrečný test</h2>
+
+    <div class="safety-quote">
+      „Bezpečnost není náhoda. Je výsledkem každodenní pozornosti, odpovědnosti a správných rozhodnutí.“
+    </div>
+
+    <div class="final-title">
+      GRATULUJI K ÚSPĚŠNÉMU DOKONČENÍ KURZU BOZP PRO ZAMĚSTNANCE GYMNÁZIA BRNO, SLOVANSKÉ NÁMĚSTÍ!
+    </div>
+
+    <div class="final-text">
+      K úspěšnému uzavření školení zbývá absolvovat závěrečný test.
+      <br>
+      <a class="final-link" target="_blank" href="#">
+        závěrečný test BOZP
+      </a>.
+    </div>
+  `
+}
+];
+
+function isChapterUnlocked(index) {
+  if (index === 0) {
+    return true;
+  }
+
+  return completed[index - 1];
+}
+
+function renderMenu() {
+  const menu = document.getElementById("menu");
+  menu.innerHTML = "";
+
+  data.forEach((chapter, index) => {
+    const button = document.createElement("button");
+    const unlocked = isChapterUnlocked(index);
+
+    const label = document.createElement("span");
+    label.className = "chapter-label";
+    label.innerText = (index + 1) + ". " + chapter.title;
+    button.appendChild(label);
+
+    if (!unlocked && index !== 0) {
+      const lock = document.createElement("span");
+      lock.className = "chapter-lock";
+      lock.innerText = "🔒";
+      lock.setAttribute("aria-label", "Kapitola je uzamčena");
+      button.appendChild(lock);
+    }
+
+    button.disabled = !unlocked;
+
+    if (unlocked) {
+      button.onclick = () => show(index);
+    }
+
+    if (index === currentChapter) {
+      button.classList.add("active");
+    }
+
+    menu.appendChild(button);
+  });
+}
+
+function show(index) {
+  if (!isChapterUnlocked(index)) {
+    return;
+  }
+
+  currentChapter = index;
+  renderMenu();
+
+  const isLast = index === data.length - 1;
+  const chapterDone = completed[index];
+
+  document.getElementById("content").innerHTML =
+    data[index].html +
+    `
+    <div id="nextBox" class="next-box ${chapterDone && !isLast ? "show" : ""}">
+      <button class="next-arrow" onclick="nextChapter()">➜</button>
+      <div class="next-text">Další kapitola</div>
+    </div>
+
+    <div id="lockedNote" class="locked-note" style="${chapterDone || isLast ? "display:none;" : ""}">
+      Pro pokračování odpověz správně na všechny otázky v této kapitole.
+    </div>
+    `;
+}
+
+function answerQuestion(chapterIndex, questionIndex, correct, button) {
+  const result = document.getElementById("result" + chapterIndex + "_" + questionIndex);
+
+  if (correct) {
+    answers[chapterIndex][questionIndex] = true;
+    result.innerText = "Správně.";
+    result.className = "result correct";
+    button.classList.add("correct-selected");
+  } else {
+    result.innerText = "Špatně. Zkus to znovu.";
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function answerQuestionCustom(chapterIndex, questionIndex, correct, button, message) {
+  const result = document.getElementById("result" + chapterIndex + "_" + questionIndex);
+
+  if (correct) {
+    answers[chapterIndex][questionIndex] = true;
+    result.innerText = message;
+    result.className = "result correct";
+    button.classList.add("correct-selected");
+  } else {
+    result.innerText = message;
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function answerTextQuestion(chapterIndex, questionIndex, correctAnswers, inputId, resultId, successMessage) {
+  const input = document.getElementById(inputId);
+  const result = document.getElementById(resultId);
+  const value = input.value.trim().toLowerCase();
+  const allowed = Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers];
+
+  if (allowed.map(answer => answer.toLowerCase()).includes(value)) {
+    answers[chapterIndex][questionIndex] = true;
+    input.classList.add("correct-input");
+    result.innerText = successMessage || "Správně.";
+    result.className = "result correct";
+  } else {
+    result.innerText = "Špatně. Zkus to znovu.";
+    result.className = "result wrong";
+  }
+
+  checkChapterCompletion(chapterIndex);
+}
+
+function checkChapterCompletion(chapterIndex) {
+  const allCorrect = answers[chapterIndex].every(value => value === true);
+
+  const nextBox = document.getElementById("nextBox");
+  const lockedNote = document.getElementById("lockedNote");
+
+  if (allCorrect) {
+    completed[chapterIndex] = true;
+
+    if (chapterIndex < data.length - 1 && nextBox) {
+      nextBox.classList.add("show");
+    }
+
+    if (lockedNote) {
+      lockedNote.style.display = "none";
+    }
+
+    renderMenu();
+  }
+}
+
+function nextChapter() {
+  if (completed[currentChapter] && currentChapter < data.length - 1) {
+    show(currentChapter + 1);
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+}
+
+renderMenu();
+show(0);
+</script>
+
+</body>
+</html>
