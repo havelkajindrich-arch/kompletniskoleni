@@ -20,6 +20,7 @@ main { flex:1; width:100%; max-width:1100px; margin:0 auto; padding:36px 20px 48
 .training-card { background:white; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,.15); overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:#222; transition:transform .18s ease, box-shadow .18s ease; }
 .training-card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.19); }
 .training-image { height:210px; padding:22px; background:#fff4ee; display:flex; align-items:center; justify-content:center; }
+.training-image.bozp-image { background:#f5f5f5; }
 .training-image img { width:100%; height:100%; object-fit:contain; }
 .training-body { padding:24px; flex:1; display:flex; flex-direction:column; }
 .training-body h3 { margin:0 0 10px; color:var(--orange); font-size:27px; font-weight:900; }
@@ -47,7 +48,7 @@ footer p { margin:1px 0; }
       <div class="training-body"><h3>PO</h3><p>Požární ochrana, prevence požáru, hasicí přístroje a evakuace.</p><span class="open-button">Otevřít školení PO</span></div>
     </a>
     <a class="training-card" href="bozp.html">
-      <div class="training-image"><img src="bezpecak.png" alt="Bezpečnost práce"></div>
+      <div class="training-image bozp-image"><img src="bezpecak.png" alt="Bezpečnost práce"></div>
       <div class="training-body"><h3>BOZP</h3><p>Bezpečnost a ochrana zdraví při práci, rizika, dohled a první pomoc.</p><span class="open-button">Otevřít školení BOZP</span></div>
     </a>
     <a class="training-card" href="gdpr.html">
