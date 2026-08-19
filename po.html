@@ -463,24 +463,6 @@ ul li, ol li {
     grid-template-columns: 1fr;
   }
 }
-
-.home-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border: 2px solid rgba(255,255,255,.9);
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 14px;
-  white-space: nowrap;
-}
-.home-link:hover { background: rgba(255,255,255,.14); }
-.header-actions { display:flex; align-items:center; gap:16px; }
-@media (max-width: 700px) { .header-actions { width:100%; justify-content:space-between; } }
-
 </style>
 </head>
 
@@ -488,9 +470,8 @@ ul li, ol li {
 
 <header>
   <h1>Požární ochrana - školení zaměstnanců</h1>
-  <div class="header-actions">
-    <a class="home-link" href="index.html">← Výběr školení</a>
-    <div class="logo-box"><img src="logo.png" alt="Logo školy"></div>
+  <div class="logo-box">
+    <img src="logo.png" alt="Logo školy">
   </div>
 </header>
 
@@ -895,6 +876,10 @@ const data = [
 
       <img class="wide-image" src="signalizace.png" alt="Signalizace">
 
+      <p style="font-size: 12px; font-style: italic; text-align: center; margin-top: -18px;">
+        zdroj: MUNI, online školení BOZP a PO, 2026
+      </p>
+
       <p>
         Únikové cesty musí být označeny značkami, které jsou viditelné i při výpadku energie.
         Může nastat situace, že v budově bude kouř, je tedy nutné se orientovat podle svítících signalizačních šipek.
@@ -913,6 +898,50 @@ const data = [
       </p>
 
       <h3>Evakuační cesty</h3>
+
+      <p>
+        Únikové cesty musí být označeny značkami, které jsou viditelné i při výpadku energie. Může nastat situace, že v budově bude kouř, je tedy nutné se orientovat podle svítících signalizačních šipek, které vás nasměřují k únikovému východu.
+      </p>
+
+      <h3>Metodika evakuace</h3>
+
+      <p><strong>Metodika nácviku požárního poplachu pro učitele:</strong></p>
+
+      <ol>
+        <li>Vyhlášení požárního poplachu proběhne školním rozhlasem.</li>
+        <li>Vyučující zkontroluje počet žáků ve třídě (s údajem v Bakalářích).</li>
+        <li>Žáky seřadí do dvojic před třídou. Vyzvat je ke klidu a tichosti.</li>
+        <li>
+          Vyučující s žáky vyčká před třídou na další pokyny. Je nutné udržovat co nejtišší prostředí tak, aby všichni slyšeli další pokyny
+          <br>- Odchází 3. a 1. patro. Pak teprve jde přízemí a 2. patro
+        </li>
+        <li>
+          Školním rozhlasem je vydán pokyn k odchodu ze školy.
+          <br>- Během evakuace dodržují žáci i vyučující dopravní předpisy (přemísťují se po chodnících a přechodech pro chodce)
+          <br>- Učebny Bi, Bil, NK, TV se evakuují průjezdem Charvatská do parku před divadlo Barka.
+          <br>- Všechny ostatní učebny se evakuují hlavním vchodem do parku na Slovanské náměstí.
+        </li>
+        <li>Vyučující opět zkontrolují počet žáků a srovnají tento počet s počtem žáků ve třídě před evakuací.</li>
+        <li>Požární hlídka obejde jednotlivé vyučující, kteří požární hlídce nahlásí počet případně chybějících žáků (tj. žáků, kteří se “ztratili” cestou ze třídy na shromaždiště), ideálně nahlásí i jméno. Člen požární hlídky toto kontroluje se záznamy v Bakalářích</li>
+        <li>Požární poplach je ukončen rozhodnutím člena požární hlídky</li>
+        <li>Žáci za doprovodu vyučujících se postupně, od prvních příchozích, vracejí do šaten.</li>
+      </ol>
+
+      <p><strong>Pravidla pro řazení v parku Slovanské náměstí:</strong></p>
+
+      <ul>
+        <li>První příchozí vyučující se třídou se postaví do rohu trávníku 2 m od chodníku v obou směrech. Vyučující stojí v čele, za ním se řadí žáci do trojstupu.</li>
+        <li>Další příchozí se staví vedle předchozích směrem ke kavárně.</li>
+      </ul>
+
+      <p><strong>Pravidla pro řazení v parku u Barky:</strong></p>
+
+      <ul>
+        <li>První příchozí vyučující se třídou se postaví do levého rohu trávníku. Vyučující stojí v čele, za ním se řadí žáci do trojstupu.</li>
+        <li>Ostatní příchozí se řadí na trávník směrem doprava.</li>
+      </ul>
+
+      <img class="wide-image" src="razeni.jpg" alt="Řazení při evakuaci">
 
       <p>
         V případě evakuace je nutné se dostat z objektu školy nejrychlejší možnou cestou.
@@ -1017,9 +1046,9 @@ const data = [
 },
 
 {
-  title: "Prevence",
+  title: "Závěrečný test",
   html: `
-    <h2>Prevence</h2>
+    <h2>Závěrečný test</h2>
 
     <img class="wide-image" src="dokonceni.png" alt="Dokončení">
 
@@ -1053,7 +1082,7 @@ function renderMenu() {
     const button = document.createElement("button");
     const accessible = canAccessChapter(index);
 
-    if (index === 0) {
+    if (index === 0 || completed[index]) {
       button.innerHTML = (index + 1) + ". " + chapter.title;
     } else {
       button.innerHTML =
@@ -1068,6 +1097,12 @@ function renderMenu() {
     } else {
       button.classList.add("locked");
       button.disabled = true;
+
+      if (index > 0 && completed[index]) {
+        button.innerHTML =
+          (index + 1) + ". " + chapter.title +
+          '<span class="lock-icon">🔒</span>';
+      }
     }
 
     if (index === currentChapter) {
