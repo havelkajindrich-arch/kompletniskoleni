@@ -48,6 +48,25 @@ header h1 {
   font-weight: 900;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Roboto', Arial, sans-serif;
+  white-space: nowrap;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
 .logo-box img {
   height: 70px;
   display: block;
@@ -470,8 +489,13 @@ ul li, ol li {
 
 <header>
   <h1>Požární ochrana - školení zaměstnanců</h1>
-  <div class="logo-box">
-    <img src="logo.png" alt="Logo školy">
+
+  <div class="header-right">
+    <a class="back-link" href="index.html">← Výběr školení</a>
+
+    <div class="logo-box">
+      <img src="logo.png" alt="Logo školy">
+    </div>
   </div>
 </header>
 
@@ -1058,7 +1082,7 @@ const data = [
 
     <div class="final-text">
       K úspěšnému uzavření zbývá již jen absolvovat test.
-      Tento test najdete na tomto
+      Tento test má jméno "Varianta C" a najdete ho na tomto
       <a class="final-link"
          target="_blank"
          href="https://docs.google.com/forms/d/e/1FAIpQLSe7JtyD_WvSLEcsBu2sJGTB579O-QC6PBpF0tXSE9fR4mSmYg/viewform?usp=header">
